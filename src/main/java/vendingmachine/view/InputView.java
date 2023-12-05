@@ -46,6 +46,7 @@ public class InputView {
         Pattern pattern = Pattern.compile(MENU_REGEX);
         Matcher matcher = pattern.matcher(menuInput);
 
+        //TODO : 정규식 공부
         if(!matcher.matches()) {
             throw new IllegalArgumentException("올바른 입력 형식이 아닙니다.");
         }
