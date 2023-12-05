@@ -31,4 +31,8 @@ public class Menu {
     public String getName() {
         return name;
     }
+
+    public boolean canPurchase(final Money money) {
+        return price.getAmount() <= money.getAmount();
+    }
 }

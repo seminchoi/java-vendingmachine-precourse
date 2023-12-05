@@ -19,4 +19,17 @@ public class MenuBoard {
         }
         menus.put(menu.getName(), menu);
     }
+
+    public boolean hasAvailableMenu(final Money money) {
+        for (Menu menu : menus.values()) {
+            if(canPurchaseMenu(menu, money)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean canPurchaseMenu(final Menu menu, final Money money) {
+        return menu.canPurchase(money);
+    }
 }
