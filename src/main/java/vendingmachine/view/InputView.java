@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputView {
-    private final static String MENU_REGEX = "\\[(.*+),(\\d+),(\\d+)\\]";
     public int inputVendingMachineHoldingAmount() {
         System.out.println("자판기가 보유하고 있는 금액을 입력해 주세요.");
         return readInt();
@@ -24,8 +23,7 @@ public class InputView {
         String line = Console.readLine();
         try {
             return Integer.parseInt(line.trim());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("숫자만 입력 가능합니다.");
         }
     }
@@ -48,19 +46,22 @@ public class InputView {
     }
 
     private MenuRequestDto parseMenu(String menuInput) {
-        Pattern pattern = Pattern.compile(MENU_REGEX);
-        Matcher matcher = pattern.matcher(menuInput);
-
         //TODO : 정규식 공부
-        if(!matcher.matches()) {
-            throw new IllegalArgumentException("올바른 입력 형식이 아닙니다.");
+
+        if (!(menuInput.startsWith("[") && menuInput.endsWith("]"))) {
+            throw new IllegalArgumentException("올바른 메뉴 형식이 아닙니다.");
         }
+        try {
+            final String substring = menuInput.substring(1, menuInput.length() - 1);
+            final String[] split = substring.split(",");
+            final String name = split[0];
+            final int price = Integer.parseInt(split[1]);
+            final int stockQuantity = Integer.parseInt(split[2]);
 
-        String name = matcher.group(1);
-        int price = Integer.parseInt(matcher.group(2));
-        int stockQuantity = Integer.parseInt(matcher.group(3));
-
-        return new MenuRequestDto(name, price, stockQuantity);
+            return new MenuRequestDto(name, price, stockQuantity);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new IllegalArgumentException("올바른 메뉴 형식이 아닙니다.");
+        }
     }
 
     public String inputMenuName() {

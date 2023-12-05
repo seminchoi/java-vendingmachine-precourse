@@ -14,7 +14,7 @@ public class OutputView {
     }
 
     public void printInsertAmount(int insertAmount) {
-        System.out.printf("\n투입 금액 : %d원\n", insertAmount);
+        System.out.printf("\n투입 금액: %d원\n", insertAmount);
     }
 
     public void printChanges(CoinsResponseDto coins) {

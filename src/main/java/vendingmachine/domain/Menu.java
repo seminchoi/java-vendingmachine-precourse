@@ -9,6 +9,7 @@ public class Menu {
     private int stockQuantity;
 
     public Menu(final String name, final int price, int stockQuantity) {
+        validate(stockQuantity);
         this.name = name;
         this.price = new Money(price);
         this.stockQuantity = stockQuantity;
@@ -33,7 +34,7 @@ public class Menu {
     }
 
     private boolean hasEnoughMoney(final Money money) {
-        return price.getAmount() > money.getAmount();
+        return price.getAmount() <= money.getAmount();
     }
 
     public String getName() {

@@ -18,17 +18,18 @@ public record CoinsResponseDto(Map<Integer, Integer> coins) {
 
         return new CoinsResponseDto(coinsResponse);
     }
-    
+
     @Override
     public String toString() {
-        StringJoiner joiner = new StringJoiner("\n");
+        StringBuilder builder = new StringBuilder();
         for (Integer coin : coins.keySet()) {
-            joiner
-                    .add(coin.toString()).add("원")
-                    .add(" - ")
-                    .add(coins.get(coin).toString()).add("개");
+            builder
+                    .append(coin.toString()).append("원")
+                    .append(" - ")
+                    .append(coins.get(coin).toString()).append("개")
+                    .append("\n");
         }
 
-        return joiner.toString();
+        return builder.toString();
     }
 }

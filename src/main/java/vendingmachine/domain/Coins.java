@@ -25,7 +25,7 @@ public class Coins {
     }
 
     public void addCoin(final Coin coin, final int count) {
-        if(count == 0) {
+        if (count == 0) {
             return;
         }
         final int coinCount = coins.getOrDefault(coin, 0);
@@ -36,7 +36,7 @@ public class Coins {
         Coins changeCoins = new Coins();
         for (final Coin coin : coins.keySet()) {
             addChanges(changeCoins, coin, money);
-            if(money.isZero()) {
+            if (money.isZero()) {
                 break;
             }
         }
@@ -46,12 +46,18 @@ public class Coins {
 
     private void addChanges(final Coins changeCoins, final Coin coin, final Money money) {
         int coinCount = coins.get(coin);
-        int addedCount = Math.min(coinCount, money.getAmount() % coin.getAmount());
+        int addedCount = Math.min(coinCount, money.getAmount() / coin.getAmount());
         money.consumeMoney(coin.getAmount() * addedCount);
         changeCoins.addCoin(coin, addedCount);
     }
 
     public Map<Coin, Integer> getCoins() {
         return coins;
+    }
+
+    public void initCoins() {
+        for (Coin coin : Coin.values()) {
+            coins.put(coin, 0);
+        }
     }
 }
