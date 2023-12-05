@@ -23,4 +23,12 @@ public class Menu {
     private boolean isInvalidStockQuantityRange(final int stockQuantity) {
         return stockQuantity < MIN_STOCK_QUANTITY || stockQuantity > MAX_STOCK_QUANTITY;
     }
+
+    public void purchaseMenu() {
+        stockQuantity--;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
