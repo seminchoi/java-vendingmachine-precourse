@@ -45,4 +45,8 @@ public class Money {
     public int getAmount() {
         return amount;
     }
+
+    public boolean isZero() {
+        return amount == 0;
+    }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class RandomCoinGenerator {
     public Coins generateCoins(final Money money) {
         final Coins coins = new Coins();
-        while (money.getAmount() > 0) {
+        while (!money.isZero()) {
             final List<Integer> amounts = Coin.getAvailableCoinAmounts();
             final Coin coin = generateCoin(amounts, money);
             coins.addCoin(coin);
