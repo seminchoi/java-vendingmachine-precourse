@@ -32,4 +32,16 @@ public class MenuBoard {
     private boolean canPurchaseMenu(final Menu menu, final Money money) {
         return menu.canPurchase(money);
     }
+
+    public void purchaseMenu(final String menuName, final Money money) {
+        if(!menus.containsKey(menuName)) {
+            throw new IllegalArgumentException("매진되었거나 존재하지 않는 메뉴입니다.");
+        }
+        final Menu menu = menus.get(menuName);
+        menu.purchaseMenu(money);
+
+        if(menu.isSoldOut()) {
+            menus.remove(menuName);
+        }
+    }
 }
