@@ -5,7 +5,7 @@ public class Money {
     private static final int MIN_AMOUNT = 100;
     private static final int MAX_AMOUNT = 50_000;
 
-    private final int amount;
+    private int amount;
 
     public Money(final int amount) {
         validate(amount);
@@ -35,5 +35,14 @@ public class Money {
 
     private boolean isInvalidAmountRange(final int amount) {
         return amount < MIN_AMOUNT || amount > MAX_AMOUNT;
+    }
+
+    public void consumeMoney(final int amount) {
+        validate(this.amount - amount);
+        this.amount -= amount;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }
