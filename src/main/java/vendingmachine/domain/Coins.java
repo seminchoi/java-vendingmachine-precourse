@@ -50,4 +50,8 @@ public class Coins {
         money.consumeMoney(coin.getAmount() * addedCount);
         changeCoins.addCoin(coin, addedCount);
     }
+
+    public Map<Coin, Integer> getCoins() {
+        return coins;
+    }
 }
