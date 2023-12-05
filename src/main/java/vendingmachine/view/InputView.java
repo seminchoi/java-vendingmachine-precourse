@@ -15,7 +15,12 @@ public class InputView {
         return readInt();
     }
 
-    public int readInt() {
+    public int inputClientInputAmount() {
+        System.out.println("투입 금액을 입력해 주세요.");
+        return readInt();
+    }
+
+    private int readInt() {
         String line = Console.readLine();
         try {
             return Integer.parseInt(line.trim());
