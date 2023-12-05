@@ -24,8 +24,9 @@ public class Menu {
         return stockQuantity < MIN_STOCK_QUANTITY || stockQuantity > MAX_STOCK_QUANTITY;
     }
 
-    public void purchaseMenu() {
+    public void purchaseMenu(final Money money) {
         stockQuantity--;
+        money.consumeMoney(price.getAmount());
     }
 
     public String getName() {
@@ -34,5 +35,9 @@ public class Menu {
 
     public boolean canPurchase(final Money money) {
         return price.getAmount() <= money.getAmount();
+    }
+
+    public boolean isSoldOut() {
+        return stockQuantity == 0;
     }
 }
