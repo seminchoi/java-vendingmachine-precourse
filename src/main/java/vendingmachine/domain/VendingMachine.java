@@ -27,7 +27,7 @@ public class VendingMachine {
         return havingCoins.giveChange(inputMoney);
     }
 
-    public int getInputAmount() {
+    public int getInsertAmount() {
         return inputMoney.getAmount();
     }
 }

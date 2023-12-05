@@ -62,4 +62,9 @@ public class InputView {
 
         return new MenuRequestDto(name, price, stockQuantity);
     }
+
+    public String inputMenuName() {
+        System.out.println("구매할 상품명을 입력해 주세요.");
+        return Console.readLine();
+    }
 }

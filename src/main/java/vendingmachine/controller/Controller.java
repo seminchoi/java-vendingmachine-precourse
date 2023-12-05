@@ -22,7 +22,12 @@ public class Controller {
         this.outputView = outputView;
     }
 
-    public VendingMachine initVendingMachine() {
+    public void run() {
+        final VendingMachine vendingMachine = initVendingMachine();
+        purchaseMenuUntilAvailable(vendingMachine);
+    }
+
+    private VendingMachine initVendingMachine() {
         final Coins havingCoins = initVendingMachineCoins();
         final MenuBoard menuBoard = initMenuBoard();
         final Money money = insertMoney();
@@ -68,6 +73,27 @@ public class Controller {
         } catch (IllegalArgumentException e) {
             outputView.printError(e);
             return insertMoney();
+        }
+    }
+
+    private void purchaseMenuUntilAvailable(final VendingMachine vendingMachine) {
+        while (vendingMachine.hasPurchasableMenu()) {
+            purchaseMenu(vendingMachine);
+        }
+
+        outputView.printInsertAmount(vendingMachine.getInsertAmount());
+        Coins coins = vendingMachine.giveChanges();
+        outputView.printChanges(CoinsResponseDto.of(coins));
+    }
+
+    private void purchaseMenu(final VendingMachine vendingMachine) {
+        try {
+            outputView.printInsertAmount(vendingMachine.getInsertAmount());
+            String menuName = inputView.inputMenuName();
+            vendingMachine.purchaseMenu(menuName);
+        } catch (IllegalArgumentException e) {
+            outputView.printError(e);
+            purchaseMenu(vendingMachine);
         }
     }
 }

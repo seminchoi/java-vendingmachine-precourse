@@ -38,7 +38,6 @@ public class Money {
     }
 
     public void consumeMoney(final int amount) {
-        validate(this.amount - amount);
         this.amount -= amount;
     }
 

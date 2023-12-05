@@ -25,8 +25,15 @@ public class Menu {
     }
 
     public void purchaseMenu(final Money money) {
+        if(!hasEnoughMoney(money)) {
+            throw new IllegalArgumentException("투입 금액이 부족합니다.");
+        }
         stockQuantity--;
         money.consumeMoney(price.getAmount());
+    }
+
+    private boolean hasEnoughMoney(final Money money) {
+        return price.getAmount() > money.getAmount();
     }
 
     public String getName() {
