@@ -23,4 +23,31 @@ public class Coins {
         final int coinCount = coins.getOrDefault(coin, 0);
         coins.put(coin, coinCount + 1);
     }
+
+    public void addCoin(final Coin coin, final int count) {
+        if(count == 0) {
+            return;
+        }
+        final int coinCount = coins.getOrDefault(coin, 0);
+        coins.put(coin, coinCount + count);
+    }
+
+    public Coins giveChange(final Money money) {
+        Coins changeCoins = new Coins();
+        for (final Coin coin : coins.keySet()) {
+            addChanges(changeCoins, coin, money);
+            if(money.isZero()) {
+                break;
+            }
+        }
+
+        return changeCoins;
+    }
+
+    private void addChanges(final Coins changeCoins, final Coin coin, final Money money) {
+        int coinCount = coins.get(coin);
+        int addedCount = Math.min(coinCount, money.getAmount() % coin.getAmount());
+        money.consumeMoney(coin.getAmount() * addedCount);
+        changeCoins.addCoin(coin, addedCount);
+    }
 }
