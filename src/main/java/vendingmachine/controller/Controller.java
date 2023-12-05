@@ -1,11 +1,17 @@
 package vendingmachine.controller;
 
 import vendingmachine.domain.Coins;
+import vendingmachine.domain.Menu;
+import vendingmachine.domain.MenuBoard;
 import vendingmachine.domain.Money;
 import vendingmachine.domain.RandomCoinGenerator;
+import vendingmachine.domain.VendingMachine;
 import vendingmachine.dto.CoinsResponseDto;
+import vendingmachine.dto.MenuRequestDto;
 import vendingmachine.view.InputView;
 import vendingmachine.view.OutputView;
+
+import java.util.List;
 
 public class Controller {
     private final InputView inputView;
@@ -16,8 +22,15 @@ public class Controller {
         this.outputView = outputView;
     }
 
-    public void run() {
-        Coins havingCoins = initVendingMachineCoins();
+    public VendingMachine initVendingMachine() {
+        final Coins havingCoins = initVendingMachineCoins();
+        final MenuBoard menuBoard = initMenuBoard();
+        final Money money = insertMoney();
+        VendingMachine vendingMachine = new VendingMachine(havingCoins, menuBoard);
+
+        vendingMachine.inputMoney(money);
+
+        return vendingMachine;
     }
 
     private Coins initVendingMachineCoins() {
@@ -33,6 +46,28 @@ public class Controller {
         } catch (IllegalArgumentException e) {
             outputView.printError(e);
             return initVendingMachineCoins();
+        }
+    }
+
+    private MenuBoard initMenuBoard() {
+        try {
+            final List<Menu> menus = inputView.inputMenus().stream()
+                    .map(MenuRequestDto::toDomain)
+                    .toList();
+            return new MenuBoard(menus);
+        } catch (IllegalArgumentException e) {
+            outputView.printError(e);
+            return initMenuBoard();
+        }
+    }
+
+    private Money insertMoney() {
+        try {
+            final int amount = inputView.inputInsertAmount();
+            return new Money(amount);
+        } catch (IllegalArgumentException e) {
+            outputView.printError(e);
+            return insertMoney();
         }
     }
 }

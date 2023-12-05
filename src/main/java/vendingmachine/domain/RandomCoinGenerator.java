@@ -14,7 +14,7 @@ public class RandomCoinGenerator {
         return coins;
     }
 
-    public Coin generateCoin(final List<Integer> amounts, final Money money) {
+    private Coin generateCoin(final List<Integer> amounts, final Money money) {
         removeAllExceededAmount(amounts, money);
         final int amount = Randoms.pickNumberInList(amounts);
         money.consumeMoney(amount);

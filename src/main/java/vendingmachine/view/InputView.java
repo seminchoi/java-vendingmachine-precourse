@@ -15,7 +15,7 @@ public class InputView {
         return readInt();
     }
 
-    public int inputClientInputAmount() {
+    public int inputInsertAmount() {
         System.out.println("투입 금액을 입력해 주세요.");
         return readInt();
     }

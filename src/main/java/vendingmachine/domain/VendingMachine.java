@@ -10,9 +10,9 @@ public class VendingMachine {
         this.menuBoard = menuBoard;
     }
 
-    public void inputMoney(final int amount) {
+    public void inputMoney(final Money money) {
         //TODO : 돈을 여러 번 넣을 수 있다면?
-        inputMoney = new Money(amount);
+        inputMoney = money;
     }
 
     public boolean hasPurchasableMenu() {
