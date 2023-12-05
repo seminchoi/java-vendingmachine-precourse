@@ -14,4 +14,20 @@ public class VendingMachine {
         //TODO : 돈을 여러 번 넣을 수 있다면?
         inputMoney = new Money(amount);
     }
+
+    public boolean hasPurchasableMenu() {
+        return menuBoard.hasAvailableMenu(inputMoney);
+    }
+
+    public void purchaseMenu(final String menuName) {
+        menuBoard.purchaseMenu(menuName, inputMoney);
+    }
+
+    public Coins giveChanges() {
+        return havingCoins.giveChange(inputMoney);
+    }
+
+    public int getInputAmount() {
+        return inputMoney.getAmount();
+    }
 }
